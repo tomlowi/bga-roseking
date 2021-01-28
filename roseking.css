@@ -1,0 +1,226 @@
+/**
+ *------
+ * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
+ * RoseKing implementation : © Iwan Tomlow <iwan.tomlow@gmail.com>
+ *
+ * This code has been produced on the BGA studio platform for use on http://boardgamearena.com.
+ * See http://en.boardgamearena.com/#!doc/Studio for more information.
+ * -----
+ *
+ * roseking.css
+ *
+ * RoseKing stylesheet
+ *
+ */
+
+/*
+    This is the CSS stylesheet of your game User Interface.
+    
+    Styles defined on this file will be applied to the HTML elements you define in your
+    HTML template (roseking_roseking.tpl), and to HTML elements you create dynamically
+    (in roseking.js).
+    
+    Usually, you are using CSS to:
+    
+    1°) define the overall layout of your game
+        (ex: place the board on the top left, place player's hand beside, place the deck on the right, ...).
+
+    2°) create your CSS-sprites:
+        All images of your games should be gathered into a small number of image files. Then, using
+        background-image and background-position CSS properties, you create HTML blocks that can 
+        display these images correctly (see example below).
+    
+    3°) ... anything else:
+        It is really easy to add and remove CSS classes dynamically from your Javascript with
+        dojo.addClass and dojo.removeClass. It is also easy to check if an element has a class
+        (dojo.hasClass) or to get all elements with a specific class (dojo.query). This is why,
+        very often, using CSS classes for the logic of your user interface allow you to do complex
+        thing easily.
+        
+        
+     Note: on the production platform, this file will be compressed and comments will be removed.
+           Consequently, don't hesitate to put as many comments as necessary.
+*/
+
+
+/* Note: you must not use any @import directive */
+
+
+/********* You can start writing your CSS below this line: **********/
+
+#rk_gametable {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
+}
+/* default = player hands below the board on full size */
+/* on large screens, we can show hands right to the board (by limiting to board height) */
+@media (min-width: 1440px) {
+    #rk_gametable {
+        max-height: 620px;
+    }
+}
+@media (max-width: 1440px) {
+    #hands {    
+        width: 100%;
+    }
+}
+#board {
+    width: 738px;
+    height: 601px;
+    background-image: url('img/board.jpg');
+    background-repeat: no-repeat;
+	background-size: cover;
+    position: relative;
+}
+
+.handHeader {    
+    text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
+}
+
+.square {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    /*background-color: yellow;*/
+}
+.token {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    background-image: url('img/tokens.png');
+    margin-top: 2px;
+    margin-left: 2px;
+}
+.token_ffffff { background-position: 0px 0px; z-index: 1 }
+.token_ff0000 { background-position: -48px 0px; z-index: 1 }
+.token_king { background-position: -96px 0px; z-index: 9 }
+
+#cardsplayed_wrap {
+    display: flex;
+    justify-content: space-evenly;
+}
+.cardsplayed>* {
+    display: inline-block;
+    vertical-align: middle;
+}
+.cardrow {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    border: 1px solid rgba(50, 50, 50, 0.6);
+    box-shadow: 1px 1px 5px rgba(50, 50, 50, 0.8);
+}
+.handrow {
+    display: flex;
+    justify-content: space-around;
+    height: 120px;
+}
+.handcards {
+    width: 350px;
+    max-height: 98px;
+    padding-left: 5px;
+}
+#tokenpiles {
+    display: flex;
+    justify-content: center;
+}
+#cardpiles {
+    width: 160px;
+    height: 120px;
+}
+#discardpile {
+    height: 96px;
+    width: 63px;
+    margin-left: 10px;
+}
+#drawpile {    
+    background-image: url(img/cards-back.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 96px;
+    width: 63px;
+}
+
+.discarded {
+    width: 63px;
+    height: 96px;
+    background-image: url('img/cards.png');
+    position: inherit !important;
+}
+
+.textoverlay {
+    color: #faebd7;
+    text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+    font-weight: 700;
+    font-size: large;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 32px;
+}
+
+.cardstack {
+    margin-left: 10px;
+    margin-right: 10px;
+    box-shadow: 1px 1px 1px white, 2px 2px 1px white, 3px 3px 1px grey, 4px 4px 1px white, 5px 5px 1px white, 6px 6px 1px grey;
+}
+
+.counter {
+    background-repeat: no-repeat;
+	background-size: cover;
+    margin-top: 16px;  
+}
+#tokensLeft {
+    background-image: url(img/tokens-left.png);
+    background-size: cover;
+    height: 96px;
+    width: 96px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+#redknights {
+    background-image: url(img/red-knight.jpg);
+    height: 62px;
+    width: 96px;
+}
+
+#whiteknights {
+    background-image: url(img/white-knight.jpg);
+    height: 62px;
+    width: 96px;
+}
+
+.movePossible {    
+    cursor: pointer;
+    opacity: 0.4;
+    outline-style: dotted;
+}
+.movePossible_ffffff {
+    background-color: #ffffff;
+    outline-color: black;
+}
+.movePossible_ff0000 {
+    background-color: #ff0000;
+    outline-color: darkblue;
+}
+.moveNeedsKnight {
+    opacity: 0.6 !important;
+    outline-style: dashed !important;
+}
+.lastCard_ffffff {
+    outline-color: darkslategray;
+    outline-style: solid;
+    outline-width: medium;
+}
+.lastCard_ff0000 {
+    outline-color: darkslategray;
+    outline-style: solid;
+    outline-width: medium;
+}
